@@ -3,7 +3,7 @@ package ContactDao;
 import java.sql.*;
 
 public class ActiveToArchiveDao {
-    private String url = "jdbc:postgresql://localhost:5432/my_pgdb";
+    private String url = "jdbc:postgresql://localhost:5432/jsp_contact";
     private String username = "postgres";
     private String password = "8520";
 

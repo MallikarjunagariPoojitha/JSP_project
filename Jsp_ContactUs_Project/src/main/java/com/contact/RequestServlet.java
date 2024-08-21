@@ -18,9 +18,12 @@ public class RequestServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         RequestDataDao dao = new RequestDataDao();
         List<ContactRequestData> requests = dao.getRequestData();
+        req.setAttribute("requests", requests);
+        RequestDispatcher rd = req.getRequestDispatcher("request.jsp");
+        rd.forward(req,res);
+    }
 
-
-//        if (requests == null) {
+    //        if (requests == null) {
 //            System.out.println("No requests found");
 //        } else {
 //            System.out.println("Requests found: " + requests.size());
@@ -29,11 +32,6 @@ public class RequestServlet extends HttpServlet {
 //            }
 //        }
 
-        req.setAttribute("requests", requests);
-
-        RequestDispatcher rd = req.getRequestDispatcher("/archiveServlet");
-        rd.forward(req,res);
-    }
 
 
 }

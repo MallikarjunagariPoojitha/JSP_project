@@ -13,20 +13,31 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class LoginServlet extends HttpServlet {
-    public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+    public void service(HttpServletRequest req, HttpServletResponse res)  {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
-        PrintWriter out = res.getWriter();
 
+        PrintWriter out = null;
+        try {
+            out = res.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         LoginDao dao = new LoginDao();
-        if(dao.getData(name,password)){
+        if (dao.getData(name, password)) {
+            HttpSession session = req.getSession();
+            session.setAttribute("name", name);
+            session.setAttribute("password", password);
             RequestDispatcher rd = req.getRequestDispatcher("/request");
-            rd.forward(req,res);
-//            res.sendRedirect("request");
-//            res.sendRedirect("../admin/contactus/request.jsp");
-        }
-        else{
+            try {
+                rd.forward(req, res);
+            } catch (ServletException e) {
+               e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
             out.println("invalid login");
         }
 

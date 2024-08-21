@@ -10,12 +10,12 @@ import java.io.IOException;
 @WebServlet("/insertData")
 public class ContactUsServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String FullName = req.getParameter("fullname");
+        String fullName = req.getParameter("fullName");
         String Email = req.getParameter("email");
         String Message = req.getParameter("message");
         ContactUsDao dao = new ContactUsDao();
-        dao.insertContactData(FullName,Email,Message);
-        res.sendRedirect("success.jsp");
+        dao.insertContactData(fullName,Email,Message);
+        res.sendRedirect("request");
 
     }
 }
